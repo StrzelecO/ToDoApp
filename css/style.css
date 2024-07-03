@@ -1,0 +1,202 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: hidden;
+  background-color: #333;
+  font-family: "Comic Sans MS", sans-serif;
+}
+
+.todo-app {
+  position: relative;
+  height: 100vh;
+  max-height: 1000px;
+  max-width: 600px;
+  min-width: 320px;
+  margin: 0px auto;
+  padding: 20px;
+  color: black;
+  background-color: rgb(179, 217, 253);
+  border: 1px solid rgba(40, 81, 119, 0.699);
+}
+.todo-app h1 {
+  text-align: center;
+  margin: 20px auto 10px;
+}
+.todo-app .app-btns {
+  text-align: center;
+}
+.todo-app .app-btns .add,
+.todo-app .app-btns .clear {
+  width: 50px;
+  margin: 0 5px;
+  box-shadow: 1px 1px 1px 1px rgba(40, 81, 119, 0.699);
+  transition: scale 0.3s, background-color 0.3s;
+  background-color: rgba(40, 81, 119, 0.158);
+  font-size: 16px;
+  padding: 5px 10px;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.todo-app .app-btns .add:hover,
+.todo-app .app-btns .clear:hover {
+  background-color: rgba(40, 81, 119, 0.699);
+  scale: 1.1;
+}
+.todo-app input {
+  width: 100%;
+  margin: 10px auto 0;
+  padding: 10px 30px;
+  font-size: 16px;
+  background-color: rgb(232, 244, 255);
+  border: 1px solid rgba(40, 81, 119, 0.699);
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px 1px rgba(40, 81, 119, 0.699);
+}
+.todo-app .addTask-panel {
+  display: none;
+  text-align: center;
+  flex-direction: column;
+  width: 100%;
+  margin: 20px auto;
+  padding: 10px 40px;
+  background-color: rgba(40, 81, 119, 0.158);
+  border: 2px solid rgba(40, 81, 119, 0.699);
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px 1px rgba(40, 81, 119, 0.699);
+}
+.todo-app .addTask-panel .importance-panel {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  margin: 0 auto;
+  line-height: 40px;
+  font-size: 16px;
+}
+.todo-app .addTask-panel .importance-panel .importance-dot {
+  width: 15px;
+  height: 15px;
+  margin: 0 10px;
+  line-height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.todo-app .addTask-panel .importance-panel .high-importance {
+  background-color: tomato;
+}
+.todo-app .addTask-panel .importance-panel .medium-importance {
+  background-color: yellow;
+}
+.todo-app .addTask-panel .importance-panel .low-importance {
+  background-color: green;
+}
+.todo-app .addTask-panel .importance-panel .selected-dot {
+  border: 2px solid black;
+  box-shadow: 0 0 5px 0px;
+}
+.todo-app .addTask-panel .add-panel-btn,
+.todo-app .addTask-panel .close-panel-btn {
+  margin: 5px 10px;
+  box-shadow: 3px 3px 3px 1px rgba(40, 81, 119, 0.699);
+  background-color: rgb(232, 244, 255);
+  font-size: 14px;
+  padding: 5px 10px;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.todo-app .scroller {
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+.todo-app .todo-list {
+  max-height: 60%;
+  margin: 30px 5px;
+}
+.todo-app .todo-list .task-panel {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  padding: 5px 0px;
+  font-size: 16px;
+  background-color: rgba(40, 81, 119, 0.158);
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px rgba(40, 81, 119, 0.699);
+}
+.todo-app .todo-list .task-panel .task {
+  position: relative;
+  padding: 0px 5px 0px 40px;
+}
+.todo-app .todo-list .task-panel .task .importance {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: black;
+}
+.todo-app .todo-list .task-panel .task p {
+  display: inline;
+}
+.todo-app .todo-list .task-panel .task-btns {
+  display: flex;
+  margin: 0 5px;
+}
+.todo-app .todo-list .task-panel .task-btns button {
+  padding: 0px 8px;
+  font-size: 16px;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: scale 0.3s, color 0.3s;
+}
+.todo-app .todo-list .task-panel .task-btns button:hover {
+  color: rgba(40, 81, 119, 0.699);
+  scale: 1.1;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(40, 81, 119, 0.699);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(40, 81, 119, 0.699);
+  border-radius: 10px;
+}
+
+@media (min-width: 480px) {
+  .todo-app .app-btns .add,
+  .todo-app .app-btns .clear {
+    position: absolute;
+    top: 5px;
+    width: 35px;
+    margin: 10px;
+  }
+  .todo-app .app-btns .add {
+    right: 65px;
+  }
+  .todo-app .app-btns .clear {
+    right: 15px;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+}
+@media (min-height: 720px) {
+  .todo-app .todo-list {
+    max-height: 75%;
+  }
+}/*# sourceMappingURL=style.css.map */

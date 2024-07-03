@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <section class="todo-app">
+        <h1>My ToDo List</h1>
+        <section class="app-btns">
+            <button class="add" title="Add new task"><i class="fa-solid fa-plus" alt="plus icon"></i></button>
+            <button class="clear" title="Clear all tasks"><i class="fa-solid fa-trash" alt="trash icon"></i></button>
+        </section>
+        <form class="addTask-panel">
+            <input type="text" placeholder="Enter new task...">
+            <div class="importance-panel">
+                <p>Importance: </p>
+                <div class="importance-dot high-importance selected-dot"></div>
+                <div class="importance-dot medium-importance"></div>
+                <div class="importance-dot low-importance"></div>
+            </div>
+            <div>
+                <button class="add-panel-btn">Add new task</button>
+                <button class="close-panel-btn">Clear inputs</button>
+            </div>
+        </form>
+        <input class="search-input" type="text" placeholder="Search...">
+        <section class="todo-list scroller">
+            <div class="task-panel">
+                <div class="task">
+                    <p><span>
+                            <div class="importance"></div>
+                        </span>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum, maxime?</p>
+                </div>
+                <div class="task-btns">
+                    <button class="done" title="Mark as done"><i class="fa-solid fa-check"
+                            alt="check icon"></i></button>
+                    <button class="remove" title="Remove task"><i class="fa-solid fa-x" alt="x icon"></i></button>
+                </div>
+            </div>
+            <div class="task-panel">
+                <div class="task">
+                    <p><span>
+                            <div class="importance"></div>
+                        </span>zadanie 2</p>
+                </div>
+                <div class="task-btns">
+                    <button class="done" aria-label="Mark as done"><i class="fa-solid fa-check"
+                            alt="check icon"></i></button>
+                    <button class="remove" aria-label="Remove task"><i class="fa-solid fa-x" alt="x icon"></i></button>
+                </div>
+            </div>
+
+
+        </section>
+    </section>
+    <script src="https://kit.fontawesome.com/0a5509da71.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

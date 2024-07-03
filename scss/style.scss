@@ -1,0 +1,226 @@
+@use './reset'; // reset
+@use './colors' as colors; // color variables
+
+// Mixin for buttons
+@mixin button-style(
+	$bg-color: #ccc,
+	$font-size: 16px,
+	$padding: 10px,
+	$color: #000,
+	$radius: 5px
+) {
+	background-color: $bg-color;
+	font-size: $font-size;
+	padding: $padding;
+	color: $color;
+	border: none;
+	cursor: pointer;
+	border-radius: $radius;
+}
+
+body {
+	overflow: hidden;
+	background-color: colors.$bg-color;
+	font-family: 'Comic Sans MS', sans-serif;
+}
+
+// Main ToDo App Styles
+.todo-app {
+	position: relative;
+	height: 100vh;
+	max-height: 1000px;
+	max-width: 600px;
+	min-width: 320px;
+	margin: 0px auto;
+	padding: 20px;
+	color: black;
+	background-color: colors.$app-color-light;
+	border: 1px solid colors.$box-shadow-borders-color;
+
+	h1 {
+		text-align: center;
+		margin: 20px auto 10px;
+	}
+
+	.app-btns {
+		text-align: center;
+		.add,
+		.clear {
+			width: 50px;
+			margin: 0 5px;
+			box-shadow: 1px 1px 1px 1px colors.$box-shadow-borders-color;
+			transition: scale 0.3s, background-color 0.3s;
+			@include button-style(colors.$app-color-dark, 16px, 5px 10px, black, 5px);
+		}
+		.add:hover,
+		.clear:hover {
+			background-color: colors.$box-shadow-borders-color;
+			scale: 1.1;
+		}
+	}
+
+	input {
+		width: 100%;
+		margin: 10px auto 0;
+		padding: 10px 30px;
+		font-size: 16px;
+		background-color: colors.$input-bg-color;
+		border: 1px solid colors.$box-shadow-borders-color;
+		border-radius: 5px;
+		box-shadow: 3px 3px 3px 1px colors.$box-shadow-borders-color;
+	}
+
+	.addTask-panel {
+		display: none;
+		// display: flex;
+		text-align: center;
+		flex-direction: column;
+		width: 100%;
+		margin: 20px auto;
+		padding: 10px 40px;
+		background-color: colors.$app-color-dark;
+		border: 2px solid colors.$box-shadow-borders-color;
+		border-radius: 5px;
+		box-shadow: 5px 5px 5px 1px colors.$box-shadow-borders-color;
+
+		.importance-panel {
+			display: flex;
+			align-items: center;
+			height: 40px;
+			margin: 0 auto;
+			line-height: 40px;
+			font-size: 16px;
+			.importance-dot {
+				width: 15px;
+				height: 15px;
+				margin: 0 10px;
+				line-height: 40px;
+				border-radius: 50%;
+				cursor: pointer;
+			}
+			.high-importance {
+				background-color: colors.$high-importance-color;
+			}
+			.medium-importance {
+				background-color: colors.$medium-importance-color;
+			}
+			.low-importance {
+				background-color: colors.$low-importance-color;
+			}
+			.selected-dot {
+				border: 2px solid black;
+				box-shadow: 0 0 5px 0px;
+			}
+		}
+		.add-panel-btn,
+		.close-panel-btn {
+			margin: 5px 10px;
+			box-shadow: 3px 3px 3px 1px colors.$box-shadow-borders-color;
+			@include button-style(colors.$input-bg-color, 14px, 5px 10px, black, 5px);
+		}
+	}
+	.scroller {
+		overflow-y: scroll;
+		scroll-snap-type: y mandatory;
+	}
+
+	.todo-list {
+		max-height: 60%;
+		margin: 30px 5px;
+
+		.task-panel {
+			display: flex;
+			justify-content: space-between;
+			margin: 10px;
+			padding: 5px 0px;
+			font-size: 16px;
+			background-color: colors.$app-color-dark;
+			border-radius: 5px;
+			box-shadow: 2px 2px 2px 1px colors.$box-shadow-borders-color;
+
+			.task {
+				position: relative;
+				padding: 0px 5px 0px 40px;
+				.importance {
+					position: absolute;
+					top: 5px;
+					left: 10px;
+					width: 10px;
+					height: 10px;
+					border-radius: 50%;
+					background-color: black;
+				}
+				p {
+					display: inline;
+				}
+			}
+
+			.task-btns {
+				display: flex;
+				margin: 0 5px;
+				button {
+					padding: 0px 8px;
+					font-size: 16px;
+					text-transform: uppercase;
+					background: none;
+					border: none;
+					cursor: pointer;
+					transition: scale 0.3s, color 0.3s;
+				}
+				button:hover {
+					color: colors.$box-shadow-borders-color;
+					scale: 1.1;
+				}
+			}
+		}
+	}
+}
+
+// Custom Scrollbar
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px colors.$box-shadow-borders-color;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: colors.$box-shadow-borders-color;
+	border-radius: 10px;
+}
+
+// Responsive Styles
+@media (min-width: 480px) {
+	.todo-app {
+		.app-btns {
+			.add,
+			.clear {
+				position: absolute;
+				top: 5px;
+				width: 35px;
+				margin: 10px;
+			}
+
+			.add {
+				right: 65px;
+			}
+
+			.clear {
+				right: 15px;
+			}
+		}
+	}
+	::-webkit-scrollbar {
+		width: 10px;
+	}
+}
+
+@media (min-height: 720px) {
+	.todo-app {
+		.todo-list {
+			max-height: 75%;
+		}
+	}
+}
