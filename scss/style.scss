@@ -119,6 +119,14 @@ body {
 			@include button-style(colors.$input-bg-color, 14px, 5px 10px, black, 5px);
 		}
 	}
+
+	.todo-list-notification {
+		display: none;
+		margin-top: 20px;
+		font-size: 18px;
+		text-align: center;
+	}
+
 	.scroller {
 		overflow-y: scroll;
 		scroll-snap-type: y mandatory;

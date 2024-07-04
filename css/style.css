@@ -111,6 +111,12 @@ body {
   cursor: pointer;
   border-radius: 5px;
 }
+.todo-app .todo-list-notification {
+  display: none;
+  margin-top: 20px;
+  font-size: 18px;
+  text-align: center;
+}
 .todo-app .scroller {
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
