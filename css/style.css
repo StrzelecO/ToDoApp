@@ -58,6 +58,18 @@ body {
   border-radius: 5px;
   box-shadow: 3px 3px 3px 1px rgba(40, 81, 119, 0.699);
 }
+.todo-app .importance {
+  background-color: black;
+}
+.todo-app div[data-importance=high] {
+  background-color: tomato;
+}
+.todo-app div[data-importance=medium] {
+  background-color: yellow;
+}
+.todo-app div[data-importance=low] {
+  background-color: green;
+}
 .todo-app .addTask-panel {
   display: none;
   text-align: center;
@@ -85,15 +97,6 @@ body {
   line-height: 40px;
   border-radius: 50%;
   cursor: pointer;
-}
-.todo-app .addTask-panel .importance-panel .high-importance {
-  background-color: tomato;
-}
-.todo-app .addTask-panel .importance-panel .medium-importance {
-  background-color: yellow;
-}
-.todo-app .addTask-panel .importance-panel .low-importance {
-  background-color: green;
 }
 .todo-app .addTask-panel .importance-panel .selected-dot {
   border: 2px solid black;
@@ -146,7 +149,6 @@ body {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: black;
 }
 .todo-app .todo-list .task-panel .task p {
   display: inline;

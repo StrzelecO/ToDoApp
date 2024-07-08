@@ -70,9 +70,22 @@ body {
 		box-shadow: 3px 3px 3px 1px colors.$box-shadow-borders-color;
 	}
 
+	.importance {
+		background-color: black;
+	}
+
+	div[data-importance='high'] {
+		background-color: colors.$high-importance-color;
+	}
+	div[data-importance='medium'] {
+		background-color: colors.$medium-importance-color;
+	}
+	div[data-importance='low'] {
+		background-color: colors.$low-importance-color;
+	}
+
 	.addTask-panel {
 		display: none;
-		// display: flex;
 		text-align: center;
 		flex-direction: column;
 		width: 100%;
@@ -97,15 +110,6 @@ body {
 				line-height: 40px;
 				border-radius: 50%;
 				cursor: pointer;
-			}
-			.high-importance {
-				background-color: colors.$high-importance-color;
-			}
-			.medium-importance {
-				background-color: colors.$medium-importance-color;
-			}
-			.low-importance {
-				background-color: colors.$low-importance-color;
 			}
 			.selected-dot {
 				border: 2px solid black;
@@ -156,7 +160,6 @@ body {
 					width: 10px;
 					height: 10px;
 					border-radius: 50%;
-					background-color: black;
 				}
 				p {
 					display: inline;
