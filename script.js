@@ -21,14 +21,19 @@ const initializeEventListeners = () => {
 };
 
 // Filters todo list, displaying only tasks that include the search phrase
-const searchPhrase = e => {
+const searchPhrase = () => {
 	[...todoList.children].forEach(task => {
 		let p = task.querySelector('p');
 		let taskText = p.textContent.toLocaleLowerCase();
-		let searchText = e.target.value.toLocaleLowerCase();
+		let searchText = searchInput.value.toLocaleLowerCase();
 		if (taskText.includes(searchText)) task.style.display = 'flex';
 		else task.style.display = 'none';
 	});
+};
+
+// Clean seach input
+const cleanSeachInput = () => {
+	searchInput.value = '';
 };
 
 // Show panel which allows to add new task
@@ -55,6 +60,8 @@ const handleAddNewTask = e => {
 	} else {
 		addNewTask(taskText);
 		closeAddTaskPanel();
+		cleanSeachInput();
+		searchPhrase();
 	}
 };
 
@@ -104,6 +111,7 @@ const createTaskElement = taskText => {
 // Remove all tasks from the list
 const clearAllTasks = () => {
 	todoList.innerHTML = '';
+	cleanSeachInput();
 	updateNotification();
 };
 
