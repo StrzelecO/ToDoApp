@@ -138,11 +138,11 @@ body {
   border-radius: 5px;
   box-shadow: 2px 2px 2px 1px rgba(40, 81, 119, 0.699);
 }
-.todo-app .todo-list .task-panel .task {
+.todo-app .todo-list .task-panel .task-text {
   position: relative;
   padding: 0px 5px 0px 40px;
 }
-.todo-app .todo-list .task-panel .task .importance {
+.todo-app .todo-list .task-panel .task-text .importance {
   position: absolute;
   top: 5px;
   left: 10px;
@@ -150,7 +150,7 @@ body {
   height: 10px;
   border-radius: 50%;
 }
-.todo-app .todo-list .task-panel .task p {
+.todo-app .todo-list .task-panel .task-text p {
   display: inline;
 }
 .todo-app .todo-list .task-panel .task-btns {
@@ -169,6 +169,10 @@ body {
 .todo-app .todo-list .task-panel .task-btns button:hover {
   color: rgba(40, 81, 119, 0.699);
   scale: 1.1;
+}
+.todo-app .todo-list .task-completed {
+  background-color: rgba(0, 128, 0, 0.4);
+  opacity: 0.4;
 }
 
 ::-webkit-scrollbar {

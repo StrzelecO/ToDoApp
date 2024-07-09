@@ -7,6 +7,8 @@ const closeAddPanelBtn = document.querySelector('.close-panel-btn');
 const taskInput = document.querySelector('.addTask-panel input');
 const importanceDots = document.querySelectorAll('.importance-dot');
 const searchInput = document.querySelector('.search-input');
+const doneTaskBtns = document.querySelectorAll('.done');
+const removeTaskBtns = document.querySelectorAll('.remove');
 
 // Initialize event listeners
 const initializeEventListeners = () => {
@@ -18,6 +20,8 @@ const initializeEventListeners = () => {
 		dot.addEventListener('click', handleImportanceChoice)
 	);
 	searchInput.addEventListener('input', searchPhrase);
+	doneTaskBtns.forEach(t => t.addEventListener('click', markTaskAsDone));
+	removeTaskBtns.forEach(t => t.addEventListener('click', removeTask));
 };
 
 // Filters todo list, displaying only tasks that include the search phrase
@@ -85,7 +89,7 @@ const createTaskElement = taskText => {
 	const taskPanel = document.createElement('div');
 	taskPanel.classList.add('task-panel');
 	taskPanel.innerHTML = `
-        <div class="task">
+        <div class="task-text">
                     <div class="importance"></div>
                     <p></p>
                 </div>
@@ -105,7 +109,26 @@ const createTaskElement = taskText => {
 			);
 		selectedImportance.classList.remove('selected-dot');
 	}
+	setTaskButtonEventListeners(taskPanel.querySelector('.task-btns'));
 	return taskPanel;
+};
+
+// Set Add Event Listiner on buttons in task
+const setTaskButtonEventListeners = taskBtnsDiv => {
+	taskBtnsDiv.querySelector('.done').addEventListener('click', markTaskAsDone);
+	taskBtnsDiv.querySelector('.remove').addEventListener('click', removeTask);
+};
+
+const markTaskAsDone = e => {
+	console.log('ok');
+	e.currentTarget.parentElement.parentElement.classList.add('task-completed');
+	e.currentTarget.disabled = true;
+};
+
+const removeTask = e => {
+	// console.log('remove task');
+	e.currentTarget.parentElement.parentElement.remove();
+	updateNotification();
 };
 
 // Remove all tasks from the list
