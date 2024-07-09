@@ -6,14 +6,29 @@ const addNewTaskBtn = document.querySelector('.add-panel-btn');
 const closeAddPanelBtn = document.querySelector('.close-panel-btn');
 const taskInput = document.querySelector('.addTask-panel input');
 const importanceDots = document.querySelectorAll('.importance-dot');
+const searchInput = document.querySelector('.search-input');
 
 // Initialize event listeners
 const initializeEventListeners = () => {
 	showAddPanelBtn.addEventListener('click', showAddTaskPanel);
 	clearAllTasksBtn.addEventListener('click', clearAllTasks);
-    addNewTaskBtn.addEventListener('click', handleAddNewTask);
-    closeAddPanelBtn.addEventListener('click', closeAddTaskPanel);
-    importanceDots.forEach(dot => dot.addEventListener('click', handleImportanceChoice));
+	addNewTaskBtn.addEventListener('click', handleAddNewTask);
+	closeAddPanelBtn.addEventListener('click', closeAddTaskPanel);
+	importanceDots.forEach(dot =>
+		dot.addEventListener('click', handleImportanceChoice)
+	);
+	searchInput.addEventListener('input', searchPhrase);
+};
+
+// Filters todo list, displaying only tasks that include the search phrase
+const searchPhrase = e => {
+	[...todoList.children].forEach(task => {
+		let p = task.querySelector('p');
+		let taskText = p.textContent.toLocaleLowerCase();
+		let searchText = e.target.value.toLocaleLowerCase();
+		if (taskText.includes(searchText)) task.style.display = 'flex';
+		else task.style.display = 'none';
+	});
 };
 
 // Show panel which allows to add new task
@@ -64,8 +79,9 @@ const createTaskElement = taskText => {
 	taskPanel.classList.add('task-panel');
 	taskPanel.innerHTML = `
         <div class="task">
-            <p><span><div class="importance"></div></span></p>
-        </div>
+                    <div class="importance"></div>
+                    <p></p>
+                </div>
         <div class="task-btns">
             <button class="done" title="Mark as done"><i class="fa-solid fa-check" alt="check icon"></i></button>
             <button class="remove" title="Remove task"><i class="fa-solid fa-x" alt="x icon"></i></button>
