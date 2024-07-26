@@ -69,6 +69,7 @@ const handleAddNewTask = e => {
 	}
 };
 
+// Highlight dot with chosen importance
 const handleImportanceChoice = e => {
 	const selectedImportance = document.querySelector('.selected-dot');
 	if (selectedImportance) {
@@ -80,12 +81,25 @@ const handleImportanceChoice = e => {
 // Add new task to the list
 const addNewTask = taskText => {
 	const taskPanel = createTaskElement(taskText);
+
+	const taskKey = taskPanel.id;
+	const taskImportance = taskPanel
+		.querySelector('.importance')
+		.getAttribute('data-importance');
+
+	saveTaskToLocalStorage(taskKey, taskText, taskImportance, false);
+
 	todoList.append(taskPanel);
 	toggleNotification(false, '');
 };
 
 // Create task element
-const createTaskElement = taskText => {
+const createTaskElement = (
+	taskText,
+	taskKey = null,
+	taskImportance = null,
+	isDone = null
+) => {
 	const taskPanel = document.createElement('div');
 	taskPanel.classList.add('task-panel');
 	taskPanel.innerHTML = `
@@ -98,19 +112,38 @@ const createTaskElement = taskText => {
             <button class="remove" title="Remove task"><i class="fa-solid fa-x" alt="x icon"></i></button>
         </div>
     `;
-	taskPanel.querySelector('p').textContent += taskInput.value;
-	const selectedImportance = document.querySelector('.selected-dot');
-	if (selectedImportance) {
+	taskPanel.querySelector('p').textContent += taskText;
+	if (!taskKey) {
+		taskKey = Date.now().toString();
+		const selectedImportance = document.querySelector('.selected-dot');
+		if (selectedImportance) {
+			taskPanel
+				.querySelector('.importance')
+				.setAttribute(
+					'data-importance',
+					selectedImportance.getAttribute('data-importance')
+				);
+			selectedImportance.classList.remove('selected-dot');
+		}
+	} else {
 		taskPanel
 			.querySelector('.importance')
-			.setAttribute(
-				'data-importance',
-				selectedImportance.getAttribute('data-importance')
-			);
-		selectedImportance.classList.remove('selected-dot');
+			.setAttribute('data-importance', taskImportance);
+		if (isDone) taskPanel.classList.add('task-completed');
 	}
+	taskPanel.id = taskKey;
 	setTaskButtonEventListeners(taskPanel.querySelector('.task-btns'));
 	return taskPanel;
+};
+
+// Save task to local storage
+const saveTaskToLocalStorage = (taskKey, taskText, taskImportance, isDone) => {
+	const taskValue = {
+		taskText,
+		taskImportance,
+		isDone,
+	};
+	localStorage.setItem(taskKey, JSON.stringify(taskValue));
 };
 
 // Set Add Event Listiner on buttons in task
@@ -119,15 +152,21 @@ const setTaskButtonEventListeners = taskBtnsDiv => {
 	taskBtnsDiv.querySelector('.remove').addEventListener('click', removeTask);
 };
 
+// Mark selected task as done
 const markTaskAsDone = e => {
-	console.log('ok');
-	e.currentTarget.parentElement.parentElement.classList.add('task-completed');
 	e.currentTarget.disabled = true;
+	const taskPanel = e.currentTarget.parentElement.parentElement;
+	taskPanel.classList.add('task-completed');
+	const taskValues = JSON.parse(localStorage.getItem(taskPanel.id));
+	taskValues.isDone = true;
+	localStorage.setItem(taskPanel.id, JSON.stringify(taskValues));
 };
 
+// Remove selected task from the list
 const removeTask = e => {
-	// console.log('remove task');
-	e.currentTarget.parentElement.parentElement.remove();
+	const task = e.currentTarget.parentElement.parentElement;
+	localStorage.removeItem(task.id);
+	task.remove();
 	updateNotification();
 };
 
@@ -136,6 +175,7 @@ const clearAllTasks = () => {
 	todoList.innerHTML = '';
 	cleanSeachInput();
 	updateNotification();
+	localStorage.clear();
 };
 
 // Update notification based on the state of the todo list
@@ -159,8 +199,24 @@ const toggleNotification = (showNotification, message) => {
 	}
 };
 
+// Display tasks from localStorage
+const displayTasksFromLocalStorage = () => {
+	Object.keys(localStorage).forEach(key => {
+		const taskObj = JSON.parse(localStorage.getItem(key));
+		const taskPanel = createTaskElement(
+			taskObj.taskText,
+			key,
+			taskObj.taskImportance,
+			taskObj.isDone
+		);
+		todoList.append(taskPanel);
+		toggleNotification(false, '');
+	});
+};
+
 // Initialize the application
 const initializeApp = () => {
+	displayTasksFromLocalStorage();
 	initializeEventListeners();
 	updateNotification();
 };
